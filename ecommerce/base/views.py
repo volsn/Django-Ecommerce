@@ -5,3 +5,7 @@ from django.shortcuts import render
 
 def index(request):
     return render(request, 'base/index.html', context={})
+
+
+def error(request):
+    return render(request, 'base/404.html', context={})
