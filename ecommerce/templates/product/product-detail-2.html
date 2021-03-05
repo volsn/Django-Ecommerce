@@ -18,24 +18,24 @@
 	                <div class="all">
 	                    <div class="slider">
 	                        <div class="owl-carousel owl-theme main">
-	                            <div style="background-image: url(img/products/shoes/1.jpg);" class="item-box"></div>
-	                            <div style="background-image: url(img/products/shoes/2.jpg);" class="item-box"></div>
-	                            <div style="background-image: url(img/products/shoes/3.jpg);" class="item-box"></div>
-	                            <div style="background-image: url(img/products/shoes/4.jpg);" class="item-box"></div>
-	                            <div style="background-image: url(img/products/shoes/5.jpg);" class="item-box"></div>
-	                            <div style="background-image: url(img/products/shoes/6.jpg);" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/1.jpg' %});" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/2.jpg' %});" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/3.jpg' %});" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/4.jpg' %});" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/5.jpg' %});" class="item-box"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/6.jpg' %});" class="item-box"></div>
 	                        </div>
 	                        <div class="left nonl"><i class="ti-angle-left"></i></div>
 	                        <div class="right"><i class="ti-angle-right"></i></div>
 	                    </div>
 	                    <div class="slider-two">
 	                        <div class="owl-carousel owl-theme thumbs">
-	                            <div style="background-image: url(img/products/shoes/1.jpg);" class="item active"></div>
-	                            <div style="background-image: url(img/products/shoes/2.jpg);" class="item"></div>
-	                            <div style="background-image: url(img/products/shoes/3.jpg);" class="item"></div>
-	                            <div style="background-image: url(img/products/shoes/4.jpg);" class="item"></div>
-	                            <div style="background-image: url(img/products/shoes/5.jpg);" class="item"></div>
-	                            <div style="background-image: url(img/products/shoes/6.jpg);" class="item"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/1.jpg' %});" class="item active"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/2.jpg' %});" class="item"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/3.jpg' %});" class="item"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/4.jpg' %});" class="item"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/5.jpg' %});" class="item"></div>
+	                            <div style="background-image: url({% static 'img/products/shoes/6.jpg' %});" class="item"></div>
 	                        </div>
 	                        <div class="left-t nonl-t"></div>
 	                        <div class="right-t"></div>
@@ -54,7 +54,7 @@
 	                <div class="prod_info">
 	                    <h1>Armor Air X Fear</h1>
 	                    <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
-	                    <p><small>SKU: MTKRY-001</small><br>Sed ex labitur adolescens scriptorem. Te saepe verear tibique sed. Et wisi ridens vix, lorem iudico blandit mel cu. Ex vel sint zril oportere, amet wisi aperiri te cum.</p>
+	                    <p><small>SKU: MTKRY-001</small><br>{{ product.short_description | safe }}</p>
 	                    <div class="prod_options">
 	                        <div class="row">
 	                            <label class="col-xl-5 col-lg-5  col-md-6 col-6 pt-0"><strong>Color</strong></label>
