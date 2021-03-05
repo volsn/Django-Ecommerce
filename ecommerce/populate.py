@@ -8,7 +8,9 @@ import argparse
 import django
 django.setup()
 
-from product.models import Color, Product, Manufacturer
+from django.core.files import File
+
+from product.models import Color, Product, Manufacturer, Image
 
 
 sneakers = ['UA HOVR™ Machina Running Shoes', 'HOKA Carbon X 2 Sneakers', 'Nike Space Hippie 04 Sneakers',
@@ -22,11 +24,13 @@ sneakers = ['UA HOVR™ Machina Running Shoes', 'HOKA Carbon X 2 Sneakers', 'Nik
 
 def populate_product(num):
     for name in sneakers[:num]:
-        if Product.objects.filter(name=name).count() != 0:
+        if not Product.objects.filter(name=name).count():
             continue
 
         colors = Color.objects.order_by('?')[:3]
         manufacturer = Manufacturer.objects.order_by('?')[0]
+        similar_products = Product.objects.order_by('?')[:5]
+
         product = Product.objects.create(
             name=name,
             short_description=lorem.paragraph() + '<br/>',
@@ -38,12 +42,26 @@ def populate_product(num):
             manufacturer=manufacturer,
         )
         product.colors.set(colors)
+        product.similar_to.set(similar_products)
         product.save()
+
+
+def populate_image(num, path='populate_data/images'):
+    files = [os.path.join(path, file) for file in os.listdir(path)
+             if file.lower().endswith(('.jpg', '.png', '.jpeg'))]
+
+    for file in files[:num]:
+        if not Image.objects.filter(name=file).count():
+            image = Image.objects.create(name=file)
+            image.image.save(os.path.basename(file), File(os.path.join(path, file)))  # TODO: Fix image upload
+            image.save()
 
 
 def main(args):
     if args.module == 'product':
         populate_product(args.quantity)
+    elif args.module == 'product.image':
+        populate_image(args.quantity)
     else:
         raise ValueError('No populate script for this module.')
 

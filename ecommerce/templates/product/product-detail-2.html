@@ -11,8 +11,10 @@
 {% block main %}
 	<main>
 	    <div class="container margin_30">
+            <!--
 	        <div class="countdown_inner">-20% This offer ends in <div data-countdown="2019/05/15" class="countdown"></div>
 	        </div>
+	        -->
 	        <div class="row">
 	            <div class="col-md-6">
 	                <div class="all">
@@ -52,7 +54,7 @@
 	                </div>
 	                <!-- /page_header -->
 	                <div class="prod_info">
-	                    <h1>Armor Air X Fear</h1>
+	                    <h1>{{ product.name }}</h1>
 	                    <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
 	                    <p><small>SKU: MTKRY-001</small><br>{{ product.short_description | safe }}</p>
 	                    <div class="prod_options">
@@ -91,7 +93,7 @@
 	                    </div>
 	                    <div class="row">
 	                        <div class="col-lg-5 col-md-6">
-	                            <div class="price_main"><span class="new_price">$148.00</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span></div>
+	                            <div class="price_main"><span class="new_price">${{ product.price }}</span></div>
 	                        </div>
 	                        <div class="col-lg-4 col-md-6">
 	                            <div class="btn_add_to_cart"><a href="#0" class="btn_1">Add to Cart</a></div>
@@ -145,10 +147,8 @@
 	                            <div class="row justify-content-between">
 	                                <div class="col-lg-6">
 	                                    <h3>Details</h3>
-	                                    <p>Lorem ipsum dolor sit amet, in eleifend <strong>inimicus elaboraret</strong> his, harum efficiendi mel ne. Sale percipit vituperata ex mel, sea ne essent aeterno sanctus, nam ea laoreet civibus electram. Ea vis eius explicari. Quot iuvaret ad has.</p>
-	                                    <p>Vis ei ipsum conclusionemque. Te enim suscipit recusabo mea, ne vis mazim aliquando, everti insolens at sit. Cu vel modo unum quaestio, in vide dicta has. Ut his laudem explicari adversarium, nisl <strong>laboramus hendrerit</strong> te his, alia lobortis vis ea.</p>
-	                                    <p>Perfecto eleifend sea no, cu audire voluptatibus eam. An alii praesent sit, nobis numquam principes ea eos, cu autem constituto suscipiantur eam. Ex graeci elaboraret pro. Mei te omnis tantas, nobis viderer vivendo ex has.</p>
-	                                </div>
+	                                    {{ product.full_description | safe }}
+                                    </div>
 	                                <div class="col-lg-5">
 	                                    <h3>Specifications</h3>
 	                                    <div class="table-responsive">
@@ -156,19 +156,23 @@
 	                                            <tbody>
 	                                                <tr>
 	                                                    <td><strong>Color</strong></td>
-	                                                    <td>Blue, Purple</td>
+	                                                    <td>
+                                                            {% for color in product.colors.all %}
+                                                                {{ color.name }},
+                                                            {% endfor %}
+                                                        </td>
 	                                                </tr>
 	                                                <tr>
 	                                                    <td><strong>Size</strong></td>
-	                                                    <td>150x100x100</td>
+	                                                    <td>{{ product.size }}</td>
 	                                                </tr>
 	                                                <tr>
 	                                                    <td><strong>Weight</strong></td>
-	                                                    <td>0.6kg</td>
+	                                                    <td>{{ product.weight }}</td>
 	                                                </tr>
 	                                                <tr>
-	                                                    <td><strong>Manifacturer</strong></td>
-	                                                    <td>Manifacturer</td>
+	                                                    <td><strong>Manufacturer</strong></td>
+	                                                    <td>{{ product.manufacturer }}</td>
 	                                                </tr>
 	                                            </tbody>
 	                                        </table>

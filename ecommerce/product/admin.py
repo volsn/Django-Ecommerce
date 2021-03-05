@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product.models import Product, Color, Manufacturer
+from product.models import Product, Color, Manufacturer, Image
 # Register your models here.
 
 
@@ -15,4 +15,9 @@ class ColorAdmin(admin.ModelAdmin):
 
 @admin.register(Manufacturer)
 class ManufacturerAdmin(admin.ModelAdmin):
+    pass
+
+
+@admin.register(Image)
+class ImageAdmin(admin.ModelAdmin):
     pass
