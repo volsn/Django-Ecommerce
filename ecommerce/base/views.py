@@ -7,5 +7,5 @@ def index(request):
     return render(request, 'base/index.html', context={})
 
 
-def error(request):
-    return render(request, 'base/404.html', context={})
+def handler404(request, exception):
+    return render(request, 'base/404.html', status=404)

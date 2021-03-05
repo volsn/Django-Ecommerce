@@ -16,8 +16,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+handler404 = 'base.views.handler404'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('base.urls')),
-    path('products/', include('product.urls'))
+    # TODO: Try to make it clear what the problem is in
+    path('', include(('base.urls', 'base'))),  # , namespace='base_namespace'
+    path('products/', include(('product.urls', 'product'))),  # namespace='product_namespace'
 ]
