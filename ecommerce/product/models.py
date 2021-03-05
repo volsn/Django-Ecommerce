@@ -37,7 +37,7 @@ class Product(models.Model):
     images = models.ManyToManyField('product.Image', blank=True)
     size = models.CharField(max_length=16)
     weight = models.CharField(max_length=8)
-    manufacturer = models.ForeignKey('product.Manufacturer', on_delete=models.CASCADE)
+    manufacturer = models.ForeignKey('product.Manufacturer', on_delete=models.PROTECT)
     similar_to = models.ManyToManyField('product.Product', blank=True)
 
     @property
