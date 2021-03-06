@@ -44,7 +44,7 @@ def populate_product(num):
         product = Product.objects.create(
             name=name,
             short_description=lorem.paragraph() + '<br/>',
-            full_description=''.join([f'<p> { lorem.paragraph() } </p>' for _ in range(5)]),
+            full_description=''.join([f'<p> { lorem.paragraph() } </p>' for _ in range(random.randint(3, 7))]),
             price=random.randint(100, 300),
             availability=random.randint(0, 100),
             size='x'.join([str(random.randint(5, 20) * 10) for _ in range(3)]),
@@ -101,10 +101,20 @@ def populate_blog(num):
             user=User.objects.order_by('?')[0],
             category=Category.objects.order_by('?')[0],
             title=lorem.sentence(),
-            text=''.join([f'<p>{ lorem.paragraph() }</p>' for _ in range(7)])
+            text=''.join([f'<p>{ lorem.paragraph() }</p>' for _ in range(random.randint(3, 10))])
         )
         blog.tags.set(Tag.objects.order_by('?')[:3])
         blog.save()
+
+
+def populate_comment(num):
+    for blog in Blog.objects.all():
+        for _ in range(random.randint(1, num)):
+            Comment.objects.create(
+                user=User.objects.order_by('?')[0],
+                blog=blog,
+                text=''.join([f'<p>{ lorem.paragraph() }</p>' for _ in range(random.randint(1, 2))])
+            ).save()
 
 
 def main(args):
@@ -120,6 +130,8 @@ def main(args):
         populate_tag(args.quantity)
     elif args.module == 'blog.category':
         populate_category(args.quantity)
+    elif args.module == 'blog.comment':
+        populate_comment(args.quantity)
     else:
         raise ValueError('No populate script for this module.')
 

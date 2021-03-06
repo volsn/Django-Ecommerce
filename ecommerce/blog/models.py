@@ -45,6 +45,6 @@ class Blog(models.Model):
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     blog = models.ForeignKey('blog.Blog', on_delete=models.PROTECT)
-    reply_to = models.ForeignKey('blog.Comment', on_delete=models.PROTECT, blank=True)
-    created_on = models.DateField(auto_now_add=True)
+    # reply_to = models.ForeignKey('blog.Comment', on_delete=models.PROTECT, blank=True) TODO: add reply functionality
+    created_at = models.DateField(auto_now_add=True)
     text = models.TextField(max_length=1024)

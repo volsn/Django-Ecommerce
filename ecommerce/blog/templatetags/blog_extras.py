@@ -27,3 +27,11 @@ def comments_count(post):
 @register.filter
 def posts_count(category):
     return Blog.objects.filter(category=category).count()
+
+
+@register.filter
+def slice_paragraphs(text, count):
+    if count == 'first':
+        return '</p>'.join(text.split('</p>')[:1]) + '</p>'
+    else:
+        return '</p>'.join(text.split('</p>')[1:]) + '</p>'
