@@ -6,9 +6,8 @@ from blog.models import Blog, Tag, Category, Comment
 
 def all_blogs(request):
 
-    page = request.GET.get('page', 0)
+    page = int(request.GET.get('page', 0))
     posts = Blog.objects.order_by('created_at')[page*20:(page+1*20)]
-    pages_count = Blog.objects.all().count()
 
     return render(request, 'blog/blog.html', context={
         'posts': posts,
@@ -16,8 +15,8 @@ def all_blogs(request):
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'title': 'Allaia Blog &amp; News',
-        'page': page,
-        'pages_count': pages_count,
+        'current_page': page,
+        'pages_count': round(Blog.objects.all().count() / 20),
     })
 
 

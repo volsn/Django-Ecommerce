@@ -2,7 +2,7 @@
 {% load static %}
 {% load blog_extras %}
 
-{% block title %} {{ title }} {% endblock %}
+{% block title %} {{ title|safe }} {% endblock %}
 
 {% block container %}
     <div class="col-lg-9">
@@ -46,26 +46,24 @@
         </div>
         <!-- /row -->
 
-        <!--
         <div class="pagination__wrapper no_border add_bottom_30">
             <ul class="pagination">
-                <li><a href="#0" class="prev" title="previous page">&#10094;</a></li>
-                <li>
-                    <a href="#0" class="active">1</a>
-                </li>
-                <li>
-                    <a href="#0">2</a>
-                </li>
-                <li>
-                    <a href="#0">3</a>
-                </li>
-                <li>
-                    <a href="#0">4</a>
-                </li>
-                <li><a href="#0" class="next" title="next page">&#10095;</a></li>
+                <li><a href="{% url 'blog:all' %}?page={{ page|add:-1 }}" class="prev" title="previous page">&#10094;</a></li>
+
+                {% for page in pages_count|range_ %}
+
+                    <li>
+                        {% if page == current_page %}
+                            <a href="{% url 'blog:all' %}?page={{ page }}" class="active">{{ page|add:1 }}</a>
+                        {% else %}
+                            <a href="{% url 'blog:all' %}?page={{ page }}" class="">{{ page|add:1 }}</a>
+                        {% endif %}
+                    </li>
+
+                {% endfor %}
+                <li><a href="{% url 'blog:all' %}?page={{ page|add:1 }}" class="next" title="next page">&#10095;</a></li>
             </ul>
         </div>
-        -->
         <!-- /pagination -->
 
     </div>

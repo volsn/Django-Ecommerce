@@ -35,3 +35,8 @@ def slice_paragraphs(text, count):
         return '</p>'.join(text.split('</p>')[:1]) + '</p>'
     else:
         return '</p>'.join(text.split('</p>')[1:]) + '</p>'
+
+
+@register.filter
+def range_(count):
+    return range(count)
