@@ -35,8 +35,8 @@ class Blog(models.Model):
     tags = models.ManyToManyField('blog.Tag')
     title = models.CharField(max_length=128)
     text = models.TextField()
-    created_on = models.DateField(auto_now_add=True)
-    main_image = models.ImageField(upload_to='blog', blank=True)
+    created_at = models.DateField(auto_now_add=True)
+    main_image = models.ImageField(upload_to='blog', blank=True, default='blog/default.png')
 
     def __str__(self):
         return self.title

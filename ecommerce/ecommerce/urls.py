@@ -26,4 +26,5 @@ urlpatterns = [
     # TODO: Try to make it clear what the problem is in
     path('', include(('base.urls', 'base'))),  # , namespace='base_namespace'
     path('products/', include(('product.urls', 'product'))),  # namespace='product_namespace'
+    path('blogs/', include(('blog.urls', 'blog'))),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
