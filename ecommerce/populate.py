@@ -4,6 +4,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'ecommerce.settings')
 import lorem
 import random
 import argparse
+from random import shuffle
 
 import django
 django.setup()
@@ -29,7 +30,8 @@ def populate_product(num):
 
         colors = Color.objects.order_by('?')[:3]
         manufacturer = Manufacturer.objects.order_by('?')[0]
-        images = Image.objects.order_by('?')[:5]
+        images = list(Image.objects.order_by('?')[:5])
+        shuffle(images)
         similar_products = Product.objects.order_by('?')[:5]
 
         product = Product.objects.create(
