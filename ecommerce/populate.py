@@ -27,6 +27,8 @@ sneakers = ['UA HOVR™ Machina Running Shoes', 'HOKA Carbon X 2 Sneakers', 'Nik
 
 tags = ['Food', 'Bars', 'Cooktails', 'Shops', 'Best', 'Offers', 'Transports', 'Restaurants']
 
+categories = ['Food', 'Places to visit', 'New Places', 'Suggestions and guides']
+
 
 def populate_product(num):
     for name in sneakers[:num]:
@@ -80,8 +82,29 @@ def populate_review(num):
 
 
 def populate_tag(num):
-    for tag in tags:
-        pass
+    for tag in tags[:num]:
+        Tag.objects.create(
+            name=tag,
+        ).save()
+
+
+def populate_category(num):
+    for category in categories[:num]:
+        Category.objects.create(
+            name=category,
+        ).save()
+
+
+def populate_blog(num):
+    for _ in range(num):
+        blog = Blog.objects.create(
+            user=User.objects.order_by('?')[0],
+            category=Category.objects.order_by('?')[0],
+            title=lorem.sentence(),
+            text=''.join([f'<p>{ lorem.paragraph() }</p>' for _ in range(7)])
+        )
+        blog.tags.set(Tag.objects.order_by('?')[:3])
+        blog.save()
 
 
 def main(args):
@@ -91,6 +114,12 @@ def main(args):
         populate_image(args.quantity)
     elif args.module == 'review':
         populate_review(args.quantity)
+    elif args.module == 'blog':
+        populate_blog(args.quantity)
+    elif args.module == 'blog.tag':
+        populate_tag(args.quantity)
+    elif args.module == 'blog.category':
+        populate_category(args.quantity)
     else:
         raise ValueError('No populate script for this module.')
 

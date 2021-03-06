@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -7,6 +8,10 @@ from django.contrib.auth.models import User
 class Tag(models.Model):
     name = models.CharField(max_length=64, unique=True)
     slug = models.SlugField(max_length=64, unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Tag, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -16,6 +21,10 @@ class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
     slug = models.SlugField(max_length=64, unique=True)
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -23,10 +32,11 @@ class Category(models.Model):
 class Blog(models.Model):
     user = models.ForeignKey(User, on_delete=models.PROTECT)
     category = models.ForeignKey('blog.Category', on_delete=models.PROTECT)
+    tags = models.ManyToManyField('blog.Tag')
     title = models.CharField(max_length=128)
     text = models.TextField()
     created_on = models.DateField(auto_now_add=True)
-    main_image = models.ImageField(upload_to='blog')
+    main_image = models.ImageField(upload_to='blog', blank=True)
 
     def __str__(self):
         return self.title
