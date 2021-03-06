@@ -17,29 +17,29 @@
 
             {% for post in posts %}
 
-            <div class="col-md-6">
-                <article class="blog">
-                    <figure>
-                        <a href="{% url 'blog:blog' pk=post.pk %}"><img src="{{ post.main_image.url }}" alt="">
-                            <div class="preview"><span>Read more</span></div>
-                        </a>
-                    </figure>
-                    <div class="post_info">
-                        <small>{{ post.category }} - {{ post.created_at }}7</small>
-                        <h2><a href="{% url 'blog:blog' pk=post.pk %}">{{ post.title|safe }}</a></h2>
-                        <p>{{ post.text|intro|safe }}</p>
-                        <ul>
-                            <li>
-                                <div class="thumb"><img src="{% static 'img/avatar.jpg' %}" alt=""></div>
-                                {{ post.user }}
-                            </li>
-                            <li><i class="ti-comment"></i>{{ post|comments_count }}</li>
-                        </ul>
-                    </div>
-                </article>
-                <!-- /article -->
-            </div>
-            <!-- /col -->
+                <div class="col-md-6">
+                    <article class="blog">
+                        <figure>
+                            <a href="{% url 'blog:blog' pk=post.pk %}"><img src="{{ post.main_image.url }}" alt="">
+                                <div class="preview"><span>Read more</span></div>
+                            </a>
+                        </figure>
+                        <div class="post_info">
+                            <small>{{ post.category }} - {{ post.created_at }}7</small>
+                            <h2><a href="{% url 'blog:blog' pk=post.pk %}">{{ post.title|safe }}</a></h2>
+                            <p>{{ post.text|intro|safe }}</p>
+                            <ul>
+                                <li>
+                                    <div class="thumb"><img src="{% static 'img/avatar.jpg' %}" alt=""></div>
+                                    {{ post.user }}
+                                </li>
+                                <li><i class="ti-comment"></i>{{ post|comments_count }}</li>
+                            </ul>
+                        </div>
+                    </article>
+                    <!-- /article -->
+                </div>
+                <!-- /col -->
 
             {% endfor %}
 

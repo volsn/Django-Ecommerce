@@ -17,35 +17,24 @@ from blog.models import Category, Tag, Blog, Comment
 from product.models import Color, Product, Manufacturer, Image
 
 
-sneakers = ['UA HOVR™ Machina Running Shoes', 'HOKA Carbon X 2 Sneakers', 'Nike Space Hippie 04 Sneakers',
-            'Nike Go FlyEase Sneakers', 'Nike Air Zoom Tempo NEXT% Sneakers', 'APL Superfuture Sneakers',
-            'Puma FUSE Training Shoes', 'Taft The Jack Sneaker', 'Allen Edmonds Courtside Custom Sneakers',
-            'Air Jordan XXXV Basketball Sneakers', 'Skechers GOrun Razor 3 Cloak Hyper', 'Koio Chukka Dune Sneakers',
-            'Brooks Levitate 4 LE Sneakers', 'Converse Digital Terrain All Star Disrupt CX',
-            'Adidas Ultraboost 21 Shoes', 'Brandblack Specter SuperCritical Runner',
-            'Reebok Nano X1 Men\'s Training Shoes', 'PUMA Dreamer 2 Basketball Sneakers', 'Adidas Originals Superstar']
-
 tags = ['Food', 'Bars', 'Cooktails', 'Shops', 'Best', 'Offers', 'Transports', 'Restaurants']
 
 categories = ['Food', 'Places to visit', 'New Places', 'Suggestions and guides']
 
 
 def populate_product(num):
-    for name in sneakers[:num]:
-        if Product.objects.filter(name=name).count():
-            continue
+    for _ in range(num):
 
         colors = Color.objects.order_by('?')[:3]
         manufacturer = Manufacturer.objects.order_by('?')[0]
-        images = list(Image.objects.order_by('?')[:5])
+        images = list(Image.objects.order_by('?')[:7])
         shuffle(images)
-        similar_products = Product.objects.order_by('?')[:5]
 
         product = Product.objects.create(
-            name=name,
+            name=lorem.sentence(),
             short_description=lorem.paragraph() + '<br/>',
             full_description=''.join([f'<p> { lorem.paragraph() } </p>' for _ in range(random.randint(3, 7))]),
-            price=random.randint(100, 300),
+            price=random.randint(5, 30),
             availability=random.randint(0, 100),
             size='x'.join([str(random.randint(5, 20) * 10) for _ in range(3)]),
             weight=str(random.randint(5, 15) / 10) + 'kg',
@@ -53,20 +42,22 @@ def populate_product(num):
         )
         product.colors.set(colors)
         product.images.set(images)
-        product.similar_to.set(similar_products)
+        product.save()
+
+    for product in Product.objects.all():
+        product.similar_to.set(Product.objects.order_by('?')[:5])
         product.save()
 
 
-def populate_image(num, path='populate_data/images'):
-    files = [os.path.join(path, file) for file in os.listdir(path)
+def populate_image(num, path='media/products'):
+    images = [os.path.join('products', file) for file in os.listdir(path)
              if file.lower().endswith(('.jpg', '.png', '.jpeg'))]
 
-    for file in files[:num]:
-        if not Image.objects.filter(name=file).count():
-            image = Image.objects.create(name=file)
-            print(file)
-            image.image.save(file, File(open(file), 'rb'))  # TODO: Fix image upload
-            image.save()
+    for i, image in enumerate(images[:num]):
+        Image.objects.create(
+            name=i,
+            image=image,
+        )
 
 
 def populate_review(num):

@@ -18,3 +18,8 @@ def avg_rate(reviews):
 @register.filter
 def get_reviews(product):
     return Review.objects.filter(product=product)
+
+
+@register.filter
+def range_pages(count):
+    return range(count)

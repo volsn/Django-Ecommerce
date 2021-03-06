@@ -1,3 +1,5 @@
+import math
+
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
 
@@ -8,7 +10,15 @@ from review.models import Review
 
 
 def products(request):
-    return render(request, 'product/listing-grid-1-full.html', context={'products': Product.objects.all()[:20]})
+
+    page = int(request.GET.get('page', 0))
+    products_ = Product.objects.order_by('?')
+
+    return render(request, 'product/listing-grid-1-full.html', context={
+        'products': products_[page*12:(page+1)*12],
+        'current_page': page,
+        'pages_count': math.ceil(len(products_) / 12.),
+    })
 
 
 def product(request, pk):

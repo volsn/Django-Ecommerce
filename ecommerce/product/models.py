@@ -27,7 +27,7 @@ class Image(models.Model):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=128, unique=True)
+    name = models.CharField(max_length=128)
     short_description = models.TextField()
     full_description = models.TextField()
     price = models.DecimalField(max_digits=6, decimal_places=2)
