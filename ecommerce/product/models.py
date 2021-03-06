@@ -40,6 +40,9 @@ class Product(models.Model):
     manufacturer = models.ForeignKey('product.Manufacturer', on_delete=models.PROTECT)
     similar_to = models.ManyToManyField('product.Product', blank=True)
 
+    top_selling = models.BooleanField(default=False)
+    featured = models.BooleanField(default=False)
+
     @property
     def price_display(self):
         return f"${ self.price }"

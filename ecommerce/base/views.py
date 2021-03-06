@@ -1,12 +1,15 @@
 from django.shortcuts import render
 from blog.models import Blog
+from product.models import Product
 
 # Create your views here.
 
 
 def index(request):
     return render(request, 'base/index.html', context={
-        'blogs': Blog.objects.filter(selected=True).order_by('created_at')[:4]
+        'blogs': Blog.objects.filter(selected=True).order_by('created_at')[:4],
+        'top_sellings': Product.objects.filter(top_selling=True)[:8],
+        'featured': Product.objects.filter(featured=True)[:6],
     })
 
 
