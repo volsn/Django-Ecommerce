@@ -11,10 +11,10 @@
             <h1>{{ post.title }}</h1>
             <div class="postmeta">
                 <ul>
-                    <li><a href="#"><i class="ti-folder"></i> {{ post.category }}</a></li>
+                    <li><a href="{% url 'blog:category' slug=post.category.slug %}"><i class="ti-folder"></i> {{ post.category }}</a></li>
                     <li><i class="ti-calendar"></i> {{ post.created_at }}</li>
                     <li><a href="#"><i class="ti-user"></i> {{ post.user }}</a></li>
-                    <li><a href="#"><i class="ti-comment"></i> ({{ post|comments_count }}) Comments</a></li>
+                    <li><a href="#comments"><i class="ti-comment"></i> ({{ post|comments_count }}) Comments</a></li>
                 </ul>
             </div>
             <!-- /post meta -->

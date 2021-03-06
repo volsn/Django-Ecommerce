@@ -337,12 +337,12 @@
 					<h3 data-target="#collapse_1">Quick Links</h3>
 					<div class="collapse dont-collapse-sm links" id="collapse_1">
 						<ul>
-							<li><a href="about.html">About us</a></li>
-							<li><a href="help.html">Faq</a></li>
-							<li><a href="help.html">Help</a></li>
-							<li><a href="account.html">My account</a></li>
-							<li><a href="blog.html">Blog</a></li>
-							<li><a href="contacts.html">Contacts</a></li>
+							<li><a href="{% url 'base:about' %}">About us</a></li>
+							<li><a href="#">Faq</a></li>
+							<li><a href="{% url 'base:help' %}">Help</a></li>
+							<li><a href="#">My account</a></li>
+							<li><a href="{% url 'blog:all' %}">Blog</a></li>
+							<li><a href="{% url 'base:contacts' %}">Contacts</a></li>
 						</ul>
 					</div>
 				</div>

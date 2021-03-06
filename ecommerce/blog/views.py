@@ -5,12 +5,19 @@ from blog.models import Blog, Tag, Category, Comment
 
 
 def all_blogs(request):
+
+    page = request.GET.get('page', 0)
+    posts = Blog.objects.order_by('created_at')[page*20:(page+1*20)]
+    pages_count = Blog.objects.all().count()
+
     return render(request, 'blog/blog.html', context={
-        'posts': Blog.objects.order_by('created_at')[:20],
+        'posts': posts,
         'selected_posts': Blog.objects.order_by('created_at')[:3],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'title': 'Allaia Blog &amp; News',
+        'page': page,
+        'pages_count': pages_count,
     })
 
 

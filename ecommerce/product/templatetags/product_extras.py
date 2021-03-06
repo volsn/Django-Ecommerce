@@ -12,8 +12,3 @@ def range_(value, empty: bool = True) -> range:
 @register.filter
 def avg_rate(reviews):
     return round(statistics.mean([review.rate for review in reviews]), 1)
-
-
-@register.filter
-def time(value):
-    return value

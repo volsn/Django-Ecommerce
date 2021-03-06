@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
 
@@ -11,7 +12,11 @@ class Review(models.Model):
     rate = models.IntegerField(validators=[MinValueValidator(0), MaxValueValidator(5)])
     title = models.CharField(max_length=128)
     text = models.TextField(max_length=256)
-    updated_on = models.DateTimeField(auto_now=True)
+    updated_on = models.DateTimeField()
+
+    def save(self, *args, **kwargs):
+        self.updated_on = timezone.now()
+        super(Review, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
