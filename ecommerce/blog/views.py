@@ -1,3 +1,4 @@
+import math
 from django.shortcuts import render, get_object_or_404
 from blog.models import Blog, Tag, Category, Comment
 
@@ -7,16 +8,16 @@ from blog.models import Blog, Tag, Category, Comment
 def all_blogs(request):
 
     page = int(request.GET.get('page', 0))
-    posts = Blog.objects.order_by('created_at')[page*20:(page+1*20)]
+    posts = Blog.objects.order_by('created_at')
 
     return render(request, 'blog/blog.html', context={
-        'posts': posts,
+        'posts': posts[page*20:(page+1)*20],
         'selected_posts': Blog.objects.order_by('created_at')[:3],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'title': 'Allaia Blog &amp; News',
         'current_page': page,
-        'pages_count': round(Blog.objects.all().count() / 20),
+        'pages_count': math.ceil(len(posts) / 20.),
     })
 
 
@@ -33,10 +34,17 @@ def blog_view(request, pk):
 
 
 def category(request, slug):
-    return render(request, 'blog/blog.html', context={
-        'posts': Blog.objects.filter(category__slug=slug).order_by('created_at')[:20],
+
+    page = int(request.GET.get('page', 0))
+    posts = Blog.objects.filter(category__slug=slug).order_by('created_at')
+
+    return render(request, 'blog/category.html', context={
+        'posts': posts[page*20:(page+1)*20],
         'selected_posts': Blog.objects.order_by('created_at')[:3],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
+        'category_slug': slug,
         'title': 'Allaia Blog &amp; News | ' + Category.objects.get(slug=slug).name,
+        'current_page': page,
+        'pages_count': math.ceil(len(posts) / 20.),
     })

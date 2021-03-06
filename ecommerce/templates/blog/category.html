@@ -49,23 +49,23 @@
         <div class="pagination__wrapper no_border add_bottom_30">
             <ul class="pagination">
                 {% if current_page != 0 %}
-                    <li><a href="{% url 'blog:all' %}?page={{ current_page|add:-1 }}" class="prev" title="previous page">&#10094;</a></li>
+                    <li><a href="{% url 'blog:category' slug=category_slug %}?page={{ current_page|add:-1 }}" class="prev" title="previous page">&#10094;</a></li>
                 {% endif %}
 
                 {% for page in pages_count|range_ %}
 
                     <li>
                         {% if page == current_page %}
-                            <a href="{% url 'blog:all' %}?page={{ page }}" class="active">{{ page|add:1 }}</a>
+                            <a href="{% url 'blog:category' slug=category_slug %}?page={{ page }}" class="active">{{ page|add:1 }}</a>
                         {% else %}
-                            <a href="{% url 'blog:all' %}?page={{ page }}" class="">{{ page|add:1 }}</a>
+                            <a href="{% url 'blog:category' slug=category_slug %}?page={{ page }}" class="">{{ page|add:1 }}</a>
                         {% endif %}
                     </li>
 
                 {% endfor %}
 
                 {% if current_page != pages_count|add:-1 %}
-                    <li><a href="{% url 'blog:all' %}?page={{ current_page|add:1 }}" class="next" title="next page">&#10095;</a></li>
+                    <li><a href="{% url 'blog:category' slug=category_slug %}?page={{ current_page|add:1 }}" class="next" title="next page">&#10095;</a></li>
                 {% endif %}
             </ul>
         </div>
