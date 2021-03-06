@@ -12,7 +12,7 @@ def all_blogs(request):
 
     return render(request, 'blog/blog.html', context={
         'posts': posts[page*20:(page+1)*20],
-        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:3],
+        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:4],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'title': 'Allaia Blog &amp; News',
@@ -27,7 +27,7 @@ def blog_view(request, pk):
     return render(request, 'blog/blog-post.html', context={
         'post': post,
         'comments': comments,
-        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:3],
+        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:4],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
     })
@@ -40,7 +40,7 @@ def category(request, slug):
 
     return render(request, 'blog/category.html', context={
         'posts': posts[page*20:(page+1)*20],
-        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:3],
+        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:4],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'category_slug': slug,

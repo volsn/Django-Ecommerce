@@ -50,15 +50,19 @@
                         {% if selected_posts %}
                             <ul class="comments-list">
 
-                                {% for post in selected_posts %}
+                                {% for post_ in selected_posts %}
 
-                                    <li>
-                                        <div class="alignleft">
-                                            <a href="{% url 'blog:blog' pk=post.pk %}"><img src="{{ post.main_image.url }}" alt=""></a>
-                                        </div>
-                                        <small>{{ post.category }} - {{ post.created_at }}</small>
-                                        <h3><a href="{% url 'blog:blog' pk=post.pk %}" title="">{{ post.title|short_title }}</a></h3>
-                                    </li>
+                                    {% if post_.pk != post.pk %}
+
+                                        <li>
+                                            <div class="alignleft">
+                                                <a href="{% url 'blog:blog' pk=post_.pk %}"><img src="{{ post_.main_image.url }}" alt=""></a>
+                                            </div>
+                                            <small>{{ post_.category }} - {{ post_.created_at }}</small>
+                                            <h3><a href="{% url 'blog:blog' pk=post_.pk %}" title="">{{ post_.title|short_title }}</a></h3>
+                                        </li>
+
+                                    {% endif %}
 
                                 {% endfor %}
 

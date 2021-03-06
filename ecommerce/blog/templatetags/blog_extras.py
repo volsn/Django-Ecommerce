@@ -15,8 +15,8 @@ def short_title(title):
 
 
 @register.filter
-def intro(text):
-    return text[:200] + '...</p>'
+def intro(text, length=200):
+    return text[:length] + '...</p>'
 
 
 @register.filter
