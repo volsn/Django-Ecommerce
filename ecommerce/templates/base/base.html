@@ -75,27 +75,30 @@
                                         <div class="menu-wrapper">
                                             <div class="row small-gutters">
                                                 <div class="col-lg-3">
-                                                    <h3>Listing grid</h3>
+                                                    <h3>Base</h3>
                                                     <ul>
-                                                        <li><a href="listing-grid-1-full.html">Grid Full Width</a></li>
-                                                        <li><a href="listing-grid-2-full.html">Grid Full Width 2</a></li>
-                                                        <li><a href="listing-grid-3.html">Grid Boxed</a></li>
-                                                        <li><a href="listing-grid-4-sidebar-left.html">Grid Sidebar Left</a></li>
-                                                        <li><a href="listing-grid-5-sidebar-right.html">Grid Sidebar Right</a></li>
-                                                        <li><a href="listing-grid-6-sidebar-left.html">Grid Sidebar Left 2</a></li>
-                                                        <li><a href="listing-grid-7-sidebar-right.html">Grid Sidebar Right 2</a></li>
+                                                        <li><a href="{% url 'base:index' %}">Index</a></li>
+                                                        <li><a href="{% url 'base:about' %}">About</a></li>
+                                                        <li><a href="{% url 'base:contacts' %}">Contacts</a></li>
+                                                        <li><a href="{% url 'base:help' %}">Help</a></li>
+                                                    </ul>
+                                                    <br/>
+                                                    <br/>
+                                                    <h3>Products</h3>
+                                                    <ul>
+                                                        <li><a href="{% url 'product:all' %}">All</a></li>
+                                                        <li><a href="{% url 'product:product' pk=50 %}">Product page</a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">
-                                                    <h3>Listing row &amp; Product</h3>
+                                                    <h3>Blog</h3>
                                                     <ul>
-                                                        <li><a href="listing-row-1-sidebar-left.html">Row Sidebar Left</a></li>
-                                                        <li><a href="listing-row-2-sidebar-right.html">Row Sidebar Right</a></li>
-                                                        <li><a href="listing-row-3-sidebar-left.html">Row Sidebar Left 2</a></li>
-                                                        <li><a href="listing-row-4-sidebar-extended.html">Row Sidebar Extended</a></li>
-                                                        <li><a href="product-detail-1.html">Product Large Image</a></li>
-                                                        <li><a href="product-detail-2.html">Product Carousel</a></li>
-                                                        <li><a href="product-detail-3.html">Product Sticky Info</a></li>
+                                                        <li><a href="{% url 'blog:all' %}">All</a></li>
+                                                        <li><a href="{% url 'blog:blog' pk=50 %}">Blog page</a></li>
+                                                        <li><a href="{% url 'blog:category' slug='food' %}">Category</a></li>
+                                                        <br/>
+                                                        <!-- TODO: Fix problem with bold item color. -->
+                                                        <li><a href="{% url 'admin:index' %}"><b style="color: black;">ADMIN</b></a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="col-lg-3">

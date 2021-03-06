@@ -37,6 +37,7 @@ class Blog(models.Model):
     text = models.TextField()
     created_at = models.DateField(auto_now_add=True)
     main_image = models.ImageField(upload_to='blog', blank=True, default='blog/default.png')
+    selected = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
