@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load product_extras %}
 
 {% block title %} {{ product.name }} {% endblock %}
 
@@ -53,8 +54,18 @@
 	                <!-- /page_header -->
 	                <div class="prod_info">
 	                    <h1>{{ product.name }}</h1>
-	                    <span class="rating"><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star voted"></i><i class="icon-star"></i><em>4 reviews</em></span>
-	                    <p><small>Code: {{ product.pk }}</small><br>{{ product.short_description | safe }}</p>
+
+                        <span class="rating">
+                            {% for _ in reviews|avg_rate|range_:False %}
+                                <i class="icon-star voted"></i>
+                            {% endfor %}
+                            {% for _ in reviews|avg_rate|range_:True %}
+                                <i class="icon-star"></i>
+                            {% endfor %}
+                            <em>{{ reviews|avg_rate }}/5.0</em>
+                        </span>
+
+                        <p><small>Code: {{ product.pk }}</small><br>{{ product.short_description | safe }}</p>
 	                    <div class="prod_options">
 	                        <div class="row">
 	                            <label class="col-xl-5 col-lg-5  col-md-6 col-6 pt-0"><strong>Color</strong></label>
@@ -193,49 +204,57 @@
 	                    <div id="collapse-B" class="collapse" role="tabpanel" aria-labelledby="heading-B">
 	                        <div class="card-body">
 	                            <div class="row justify-content-between">
-	                                <div class="col-lg-6">
-	                                    <div class="review_content">
-	                                        <div class="clearfix add_bottom_10">
-	                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
-	                                            <em>Published 54 minutes ago</em>
-	                                        </div>
-	                                        <h4>"Commpletely satisfied"</h4>
-	                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-	                                    </div>
-	                                </div>
-	                                <div class="col-lg-6">
-	                                    <div class="review_content">
-	                                        <div class="clearfix add_bottom_10">
-	                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><i class="icon-star empty"></i><em>4.0/5.0</em></span>
-	                                            <em>Published 1 day ago</em>
-	                                        </div>
-	                                        <h4>"Always the best"</h4>
-	                                        <p>Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-	                                    </div>
-	                                </div>
+
+                                    {% for review in reviews|slice:"0:2" %}
+
+                                        <div class="col-lg-6">
+                                            <div class="review_content">
+                                                <div class="clearfix add_bottom_10">
+                                                    <span class="rating">
+                                                        {% for _ in review.rate|range_:False %}
+                                                            <i class="icon-star"></i>
+                                                        {% endfor %}
+                                                        {% for _ in review.rate|range_:True %}
+                                                            <i class="icon-star empty"></i>
+                                                        {% endfor %}
+                                                        <em>{{ review.rate }}.0/5.0</em></span>
+                                                    {# <em>Published 54 minutes ago</em> #}
+                                                    <em>{{ product.updated_on|time }}</em>
+                                                </div>
+                                                <h4>"{{ review.title }}"</h4>
+                                                <p>{{ review.text }}</p>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
 	                            </div>
 	                            <!-- /row -->
+
 	                            <div class="row justify-content-between">
-	                                <div class="col-lg-6">
-	                                    <div class="review_content">
-	                                        <div class="clearfix add_bottom_10">
-	                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star empty"></i><em>4.5/5.0</em></span>
-	                                            <em>Published 3 days ago</em>
-	                                        </div>
-	                                        <h4>"Outstanding"</h4>
-	                                        <p>Eos tollit ancillae ea, lorem consulatu qui ne, eu eros eirmod scaevola sea. Et nec tantas accusamus salutatus, sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-	                                    </div>
-	                                </div>
-	                                <div class="col-lg-6">
-	                                    <div class="review_content">
-	                                        <div class="clearfix add_bottom_10">
-	                                            <span class="rating"><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><em>5.0/5.0</em></span>
-	                                            <em>Published 4 days ago</em>
-	                                        </div>
-	                                        <h4>"Excellent"</h4>
-	                                        <p>Sit commodo veritus te, erat legere fabulas has ut. Rebum laudem cum ea, ius essent fuisset ut. Viderer petentium cu his.</p>
-	                                    </div>
-	                                </div>
+
+                                    {% for review in reviews|slice:"2:4" %}
+
+                                        <div class="col-lg-6">
+                                            <div class="review_content">
+                                                <div class="clearfix add_bottom_10">
+                                                    <span class="rating">
+                                                        {% for _ in review.rate|range_:False %}
+                                                            <i class="icon-star"></i>
+                                                        {% endfor %}
+                                                        {% for _ in review.rate|range_:True %}
+                                                            <i class="icon-star empty"></i>
+                                                        {% endfor %}
+                                                        <em>{{ review.rate }}.0/5.0</em></span>
+                                                    <em>Published 54 minutes ago</em>
+                                                </div>
+                                                <h4>"{{ review.title }}"</h4>
+                                                <p>{{ review.text }}</p>
+                                            </div>
+                                        </div>
+
+                                    {% endfor %}
+
 	                            </div>
 	                            <!-- /row -->
 	                            <p class="text-right"><a href="leave-review.html" class="btn_1">Leave a review</a></p>
@@ -340,7 +359,7 @@
 	                <div class="col-md-7">
 	                    <div class="item_panel">
 	                        <figure>
-	                            <img src="img/products/product_placeholder_square_small.jpg" data-src="img/products/shoes/1.jpg" class="lazy" alt="">
+	                            <img src="{% static 'img/products/product_placeholder_square_small.jpg' %}" data-src="{% static 'img/products/shoes/1.jpg' %}" class="lazy" alt="">
 	                        </figure>
 	                        <h4>1x Armor Air X Fear</h4>
 	                        <div class="price_panel"><span class="new_price">$148.00</span><span class="percentage">-20%</span> <span class="old_price">$160.00</span></div>

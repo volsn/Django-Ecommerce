@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse
+
 from product.models import Product
+from review.models import Review
 
 # Create your views here.
 
@@ -17,5 +19,6 @@ def product(request, pk):
         return reverse('base:handler404')
     """
     product_obj = get_object_or_404(Product, pk=pk)
+    reviews = Review.objects.filter(product=product_obj).order_by('updated_on')[:4]
 
-    return render(request, 'product/product-detail-2.html', context={'product': product_obj})
+    return render(request, 'product/product-detail-2.html', context={'product': product_obj, 'reviews': reviews})

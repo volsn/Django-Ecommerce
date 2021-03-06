@@ -10,7 +10,10 @@ import django
 django.setup()
 
 from django.core.files import File
+from django.contrib.auth.models import User
 
+from review.models import Review
+from blog.models import Category, Tag, Blog, Comment
 from product.models import Color, Product, Manufacturer, Image
 
 
@@ -21,6 +24,8 @@ sneakers = ['UA HOVR™ Machina Running Shoes', 'HOKA Carbon X 2 Sneakers', 'Nik
             'Brooks Levitate 4 LE Sneakers', 'Converse Digital Terrain All Star Disrupt CX',
             'Adidas Ultraboost 21 Shoes', 'Brandblack Specter SuperCritical Runner',
             'Reebok Nano X1 Men\'s Training Shoes', 'PUMA Dreamer 2 Basketball Sneakers', 'Adidas Originals Superstar']
+
+tags = ['Food', 'Bars', 'Cooktails', 'Shops', 'Best', 'Offers', 'Transports', 'Restaurants']
 
 
 def populate_product(num):
@@ -37,7 +42,7 @@ def populate_product(num):
         product = Product.objects.create(
             name=name,
             short_description=lorem.paragraph() + '<br/>',
-            full_description=''.join(['<p>' + lorem.paragraph() + '</p>' for _ in range(5)]),
+            full_description=''.join([f'<p> { lorem.paragraph() } </p>' for _ in range(5)]),
             price=random.randint(100, 300),
             availability=random.randint(0, 100),
             size='x'.join([str(random.randint(5, 20) * 10) for _ in range(3)]),
@@ -62,11 +67,30 @@ def populate_image(num, path='populate_data/images'):
             image.save()
 
 
+def populate_review(num):
+    for product in Product.objects.all():
+        for _ in range(num):
+            Review.objects.create(
+                user=User.objects.order_by('?')[0],
+                product=product,
+                rate=random.randint(0, 5),
+                title=lorem.sentence()[:25],
+                text=lorem.paragraph(),
+            ).save()
+
+
+def populate_tag(num):
+    for tag in tags:
+        pass
+
+
 def main(args):
     if args.module == 'product':
         populate_product(args.quantity)
     elif args.module == 'product.image':
         populate_image(args.quantity)
+    elif args.module == 'review':
+        populate_review(args.quantity)
     else:
         raise ValueError('No populate script for this module.')
 
