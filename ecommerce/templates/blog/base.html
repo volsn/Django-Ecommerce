@@ -47,21 +47,23 @@
 						<div class="widget-title">
 							<h4>Selected Post</h4>
 						</div>
-						<ul class="comments-list">
+                        {% if selected_posts %}
+                            <ul class="comments-list">
 
-                            {% for post in selected_posts %}
+                                {% for post in selected_posts %}
 
-                                <li>
-                                    <div class="alignleft">
-                                        <a href="{% url 'blog:blog' pk=post.pk %}"><img src="{{ post.main_image.url }}" alt=""></a>
-                                    </div>
-                                    <small>{{ post.category }} - {{ post.created_at }}</small>
-                                    <h3><a href="{% url 'blog:blog' pk=post.pk %}" title="">{{ post.title|short_title }}</a></h3>
-                                </li>
+                                    <li>
+                                        <div class="alignleft">
+                                            <a href="{% url 'blog:blog' pk=post.pk %}"><img src="{{ post.main_image.url }}" alt=""></a>
+                                        </div>
+                                        <small>{{ post.category }} - {{ post.created_at }}</small>
+                                        <h3><a href="{% url 'blog:blog' pk=post.pk %}" title="">{{ post.title|short_title }}</a></h3>
+                                    </li>
 
-                            {% endfor %}
+                                {% endfor %}
 
-						</ul>
+                            </ul>
+                        {% endif %}
 					</div>
 					<!-- /widget -->
 					<div class="widget">

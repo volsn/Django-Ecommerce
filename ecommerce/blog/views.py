@@ -40,7 +40,7 @@ def category(request, slug):
 
     return render(request, 'blog/category.html', context={
         'posts': posts[page*20:(page+1)*20],
-        'selected_posts': Blog.objects.order_by('created_at')[:3],
+        'selected_posts': Blog.objects.filter(selected=True).order_by('created_at')[:3],
         'tags': Tag.objects.all(),
         'categories': Category.objects.all(),
         'category_slug': slug,

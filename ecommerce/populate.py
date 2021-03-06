@@ -95,12 +95,15 @@ def populate_category(num):
         ).save()
 
 
-def populate_blog(num):
+def populate_blog(num, path='media/blog'):
+    images = [os.path.join('blog', file) for file in os.listdir(path)
+              if file.endswith(('.png', '.jpg', '.jpeg'))]
     for _ in range(num):
         blog = Blog.objects.create(
             user=User.objects.order_by('?')[0],
             category=Category.objects.order_by('?')[0],
             title=lorem.sentence(),
+            main_image=random.choice(images),
             text=''.join([f'<p>{ lorem.paragraph() }</p>' for _ in range(random.randint(3, 10))])
         )
         blog.tags.set(Tag.objects.order_by('?')[:3])

@@ -6,7 +6,7 @@ from blog.models import Blog, Category, Tag, Comment
 
 @admin.register(Blog)
 class BlogAdmin(admin.ModelAdmin):
-    pass
+    list_filter = ('selected',)
 
 
 @admin.register(Comment)
