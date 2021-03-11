@@ -31,5 +31,4 @@ def range_pages(count):
 @register.filter
 def is_in_cart(product, user):
     account = get_object_or_404(UserAccount, user=user)
-    print(account.cart.filter(product=product))
-    return account.cart.filter(product=product).exists()
+    return product in account.cart.all()

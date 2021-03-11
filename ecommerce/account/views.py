@@ -78,3 +78,11 @@ def remove_from_cart(request, pk):
     account = get_object_or_404(UserAccount, user=request.user)
     account.cart.remove(product)
     return HttpResponseRedirect(request.META.get('HTTP_REFERER'))
+
+
+@login_required
+def cart(request):
+    account = get_object_or_404(UserAccount, user=request.user)
+    return render(request, 'account/cart.html', context={
+        'products': account.cart.all(),
+    })
