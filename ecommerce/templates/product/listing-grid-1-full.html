@@ -214,7 +214,7 @@
                         <div class="grid_item">
                             <figure>
                                 <a href="{% url 'product:product' pk=product.pk %}">
-                                    <img class="img-fluid lazy" src="{% static 'img/products/product_placeholder_square_medium.jpg' %}" data-src="{{ product.images.all.0.image.url }}" alt=""> {# TODO: {% static 'img/products/shoes/2.jpg' %} #}
+                                    <img class="img-fluid lazy" src="{% static 'img/products/product_placeholder_square_medium.jpg' %}" data-src="{{ product.images.all.0.image.url }}" alt="">
                                 </a>
                             </figure>
                             <a href="{% url 'product:product' pk=product.pk %}">

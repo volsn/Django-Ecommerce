@@ -1,0 +1,280 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% load product_extras %}
+
+{% block title %} My likes {% endblock %}
+
+{% block specific_css %}
+	<!-- SPECIFIC CSS -->
+    <link href="{% static 'css/listing.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block main %}
+    {% if products %}
+        <main>
+            <div class="top_banner">
+                <div class="opacity-mask d-flex align-items-center" data-opacity-mask="rgba(0, 0, 0, 0.3)">
+                    <div class="container">
+                        <h1>Shoes - Grid listing</h1>
+                    </div>
+                </div>
+                <img src="{% static 'img/bg_cat_shoes.jpg' %}" class="img-fluid" alt="">
+            </div>
+            <!-- /top_banner -->
+            <div id="stick_here"></div>
+            <div class="toolbox elemento_stick">
+                <div class="container">
+                    <ul class="clearfix">
+                        <li>
+                            <div class="sort_select">
+                                <select name="sort" id="sort">
+                                    <option value="popularity" selected="selected">Sort by popularity</option>
+                                    <option value="rating">Sort by average rating</option>
+                                    <option value="date">Sort by newness</option>
+                                    <option value="price">Sort by price: low to high</option>
+                                    <option value="price-desc">Sort by price: high to
+                                </select>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="#0"><i class="ti-view-grid"></i></a>
+                            <a href="listing-row-1-sidebar-left.html"><i class="ti-view-list"></i></a>
+                        </li>
+                        <li>
+                            <a href="#0" class="open_filters">
+                                <i class="ti-filter"></i><span>Filters</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /toolbox -->
+            <div class="container margin_30">
+                <div class="row">
+                    <aside class="col-lg-3" id="sidebar_fixed">
+                        <div class="filter_col">
+                            <div class="inner_bt"><a href="#" class="open_filters"><i class="ti-close"></i></a></div>
+                            <div class="filter_type version_2">
+                                <h4><a href="#filter_1" data-toggle="collapse" class="opened">Categories</a></h4>
+                                <div class="collapse show" id="filter_1">
+                                    <ul>
+                                        <li>
+                                            <label class="container_check">Men <small>12</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Women <small>24</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Running <small>23</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Training <small>11</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!-- /filter_type -->
+                            </div>
+                            <!-- /filter_type -->
+                            <div class="filter_type version_2">
+                                <h4><a href="#filter_2" data-toggle="collapse" class="opened">Color</a></h4>
+                                <div class="collapse show" id="filter_2">
+                                    <ul>
+                                        <li>
+                                            <label class="container_check">Blue <small>06</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Red <small>12</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Orange <small>17</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Black <small>43</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /filter_type -->
+                            <div class="filter_type version_2">
+                                <h4><a href="#filter_3" data-toggle="collapse" class="closed">Brands</a></h4>
+                                <div class="collapse" id="filter_3">
+                                    <ul>
+                                        <li>
+                                            <label class="container_check">Adidas <small>11</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Nike <small>08</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Vans <small>05</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">Puma <small>18</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /filter_type -->
+                            <div class="filter_type version_2">
+                                <h4><a href="#filter_4" data-toggle="collapse" class="closed">Price</a></h4>
+                                <div class="collapse" id="filter_4">
+                                    <ul>
+                                        <li>
+                                            <label class="container_check">$0 — $50<small>11</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">$50 — $100<small>08</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">$100 — $150<small>05</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label class="container_check">$150 — $200<small>18</small>
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /filter_type -->
+                            <div class="buttons">
+                                <a href="#0" class="btn_1">Filter</a> <a href="#0" class="btn_1 gray">Reset</a>
+                            </div>
+                        </div>
+                    </aside>
+                    <!-- /col -->
+                    <div class="col-lg-9">
+
+                        {% for product in products %}
+
+                            <div class="row row_item">
+                                <div class="col-sm-4">
+                                    <figure>
+                                        <a href="{% url 'product:product' pk=product.pk %}">
+                                            <img class="img-fluid lazy" src="{% static 'img/products/product_placeholder_square_medium.jpg' %}" data-src="{{ product.images.all.0.image.url }}" alt="">
+                                        </a>
+                                    </figure>
+                                </div>
+                                <div class="col-sm-8">
+
+                                    <div class="rating">
+                                        {% for _ in product|get_reviews|avg_rate|range_:False %}
+                                            <i class="icon-star voted"></i>
+                                        {% endfor %}
+                                        {% for _ in product|get_reviews|avg_rate|range_:True %}
+                                            <i class="icon-star"></i>
+                                        {% endfor %}
+                                    </div>
+
+                                    <a href="{% url 'product:product' pk=product.pk %}">
+                                        <h3>{{ product.name }}</h3>
+                                    </a>
+                                    <p>{{ product.short_description|safe }}</p>
+                                    <div class="price_box">
+                                        <span class="new_price">${{ product.price }}</span>
+                                    </div>
+                                    <ul>
+
+                                        {% if product|is_in_cart:user %}
+                                            <li><a href="{% url 'account:remove_from_cart' pk=product.pk %}" class="btn_1">Remove from cart</a></li>
+                                        {% else %}
+                                            <li><a href="{% url 'account:add_to_cart' pk=product.pk %}" class="btn_1">Add to cart</a></li>
+                                        {% endif %}
+
+                                        <li><a href="{% url 'account:unlike' pk=product.pk %}" class="btn_1 gray tooltip-1" data-toggle="tooltip" data-placement="top" title="Remove from favorites"><i class="ti-heart"></i><span>Remove from favorites</span></a></li>
+                                        <li><a href="#0" class="btn_1 gray tooltip-1" data-toggle="tooltip" data-placement="top" title="Add to compare"><i class="ti-control-shuffle"></i><span>Add to compare</span></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <!-- /row_item -->
+
+                        {% endfor %}
+
+
+                        <div class="pagination__wrapper">
+                            {% if pages_count != 1 %}
+                                <ul class="pagination">
+                                    {% if current_page != 0 %}
+                                        <li><a href="{% url 'product:liked' %}?page={{ current_page|add:-1 }}" class="prev" title="previous page">&#10094;</a></li>
+                                    {% endif %}
+
+                                    {% for page in pages_count|range_pages %}
+
+                                        <li>
+                                            {% if page == current_page %}
+                                                <a href="{% url 'product:liked' %}?page={{ page }}" class="active">{{ page|add:1 }}</a>
+                                            {% else %}
+                                                <a href="{% url 'product:liked' %}?page={{ page }}" class="">{{ page|add:1 }}</a>
+                                            {% endif %}
+                                        </li>
+
+                                    {% endfor %}
+
+                                    {% if current_page != pages_count|add:-1 %}
+                                        <li><a href="{% url 'product:liked' %}?page={{ current_page|add:1 }}" class="next" title="next page">&#10095;</a></li>
+                                    {% endif %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <!-- /col -->
+                </div>
+                <!-- /row -->
+            </div>
+            <!-- /container -->
+        </main>
+        <!-- /main -->
+    {% endif %}
+{% endblock %}
+
+{% block specific_scripts %}
+	<!-- SPECIFIC SCRIPTS -->
+	<script src="{% static 'js/sticky_sidebar.min.js' %}"></script>
+	<script src="{% static 'js/specific_listing.js' %}"></script>
+{% endblock %}

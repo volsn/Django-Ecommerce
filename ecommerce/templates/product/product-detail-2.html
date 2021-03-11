@@ -113,7 +113,7 @@
 	                <div class="product_actions">
 	                    <ul>
 	                        <li>
-	                            <a href="#"><i class="ti-heart"></i><span>Add to Wishlist</span></a>
+	                            <a href="{% url 'account:like' pk=product.pk %}"><i class="ti-heart"></i><span>Add to Wishlist</span></a>
 	                        </li>
 	                        <li>
 	                            <a href="#"><i class="ti-control-shuffle"></i><span>Add to Compare</span></a>
