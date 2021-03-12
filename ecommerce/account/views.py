@@ -43,8 +43,24 @@ def user_register(request):
     """
     user_form = UserForm(data=request.POST)
     account_form = UserAccountForm(data=request.POST)
-    print(user_form.errors)
-    print(account_form.errors)
+    if user_form.is_valid() and account_form.is_valid():
+        user = user_form.save(commit=False)
+        user.email = user.username
+        user.set_password(user.password)
+        user.save()
+
+        user_account = account_form.save(commit=False)
+        user_account.user = user
+
+        if 'pic' in request.FILES:
+            user_account.pic = request.FILES['pic']
+
+        user_account.save()
+
+        login(request, user)
+
+    else:
+        print(user_form.errors, account_form.errors)
 
     return HttpResponseRedirect(reverse('base:index'))
 

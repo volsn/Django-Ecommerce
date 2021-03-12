@@ -1,5 +1,11 @@
 import math
+
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_http_methods
+
 from blog.models import Blog, Tag, Category, Comment
 
 # Create your views here.
@@ -48,3 +54,19 @@ def category(request, slug):
         'current_page': page,
         'pages_count': math.ceil(len(posts) / 20.),
     })
+
+
+@require_http_methods(('POST',))
+@login_required
+def leave_comment(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
+    text = request.POST.get('text')
+
+    if len(text) > 0:
+        Comment.objects.create(
+            user=request.user,
+            blog=blog,
+            text=text,
+        ).save()
+
+    return HttpResponseRedirect(reverse('blog:blog', kwargs={'pk': pk}))

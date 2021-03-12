@@ -62,30 +62,20 @@
 
         <hr>
 
-        <h5>Leave a comment</h5>
-        <div class="row">
-            <div class="col-md-4 col-sm-6">
+        {% if user.is_authenticated %}
+            <h5>Leave a comment</h5>
+            <form action="{% url 'blog:comment' pk=post.pk %}" method="POST">
+                {% csrf_token %}
                 <div class="form-group">
-                    <input type="text" name="name" id="name2" class="form-control" placeholder="Name">
+                    <textarea class="form-control" name="text" id="comments2" rows="6" placeholder="Comment"></textarea>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
                 <div class="form-group">
-                    <input type="text" name="email" id="email2" class="form-control" placeholder="Email">
+                    <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-12">
-                <div class="form-group">
-                    <input type="text" name="email" id="website3" class="form-control" placeholder="Website">
-                </div>
-            </div>
-        </div>
-        <div class="form-group">
-            <textarea class="form-control" name="comments" id="comments2" rows="6" placeholder="Comment"></textarea>
-        </div>
-        <div class="form-group">
-            <button type="submit" id="submit2" class="btn_1 add_bottom_15">Submit</button>
-        </div>
+            </form>
+        {% else %}
+            <a href="{% url 'account:login_register' %}"><h5>Login to leave a comment</h5></a>
+        {% endif %}
 
     </div>
 {% endblock %}

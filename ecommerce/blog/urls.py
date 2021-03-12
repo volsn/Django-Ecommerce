@@ -4,5 +4,6 @@ from blog import views
 urlpatterns = [
     path('all/', views.all_blogs, name='all'),
     path('<int:pk>/', views.blog_view, name='blog'),
-    path('<str:slug>/', views.category, name='category')
+    path('<str:slug>/', views.category, name='category'),
+    path('comment/<int:pk>', views.leave_comment, name='comment'),
 ]
