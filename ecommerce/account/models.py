@@ -18,7 +18,7 @@ class UserAccount(models.Model):
     full_address = models.CharField(max_length=256)
     city = models.CharField(max_length=64)
     postal_code = models.CharField(max_length=32)
-    country = models.CharField(choices=COUNTY_CHOICES, max_length=2)
+    country = models.CharField(choices=COUNTY_CHOICES, max_length=2, blank=True)
     telephone = models.CharField(max_length=10)
     cart = models.ManyToManyField('product.Product', related_name='cart', blank=True)
     liked = models.ManyToManyField('product.Product', related_name='liked', blank=True)

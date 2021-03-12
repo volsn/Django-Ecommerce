@@ -8,6 +8,7 @@ from django.views.decorators.http import require_http_methods
 
 from product.models import Product
 from account.models import UserAccount
+from account.forms import UserForm, UserAccountForm
 # Create your views here.
 
 
@@ -36,10 +37,16 @@ def user_login(request):
 @require_http_methods(('POST',))
 def user_register(request):
 
+    """
     user_fields = ('email', 'password', 'first_name', 'last_name',)
     account_fields = ('full_address', 'city', 'postal_code', 'country', 'telephone')
+    """
+    user_form = UserForm(data=request.POST)
+    account_form = UserAccountForm(data=request.POST)
+    print(user_form.errors)
+    print(account_form.errors)
 
-    pass  # TODO: Finish registration view using forms
+    return HttpResponseRedirect(reverse('base:index'))
 
 
 @login_required
